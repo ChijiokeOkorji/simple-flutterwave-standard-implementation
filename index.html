@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Flutterwave Payment</title>
+
+  <style>
+    html {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    * {
+      position: relative;
+      box-sizing: inherit;
+    }
+
+    form {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    input {
+      width: min(17.5rem, 100%);
+      height: 3rem;
+      margin: 0.5rem;
+      padding: 0 0.75rem 0 1rem;
+      background-color: #ffffff;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.03125rem;
+      color: #000000e6;
+      border-radius: 0.25rem;
+      border: 0.0625rem solid #7b7b7b44;
+      box-shadow: none;
+      outline: none;
+    }
+
+    input::placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder {
+      color: #00000099;
+      opacity: 1;
+    }
+  
+    input:focus {
+      padding: 0 0.6875rem 0 0.9375rem;
+      border: 0.125rem solid #3662d8;
+    }
+
+    button {
+      min-width: 4rem;
+      height: 2.25rem;
+      margin: 1rem 1rem;
+      padding: 0 1rem;
+      border: 1px solid #ffffff00;
+      border-radius: 0.25rem;
+      background-color: #3662d8;
+      color: #ffffff;
+      transition: box-shadow 0.15s ease 0s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.96;
+    }
+
+    button:focus {
+      box-shadow: 0 0.0625rem 0.625rem #0000001f, 0 0.25rem 0.3125rem #00000024, 0 0.125rem 0.25rem #00000033;
+      border-color: #3662d8;
+      opacity: 0.9;
+      transition-duration: 0.1s;
+    }
+
+    button:active {
+      box-shadow: 0 0.1875rem 0.875rem #0000001f, 0 0.5rem 0.625rem #00000024, 0 0.3125rem 0.3125rem #00000033;
+      border-color: #3662d8;
+      opacity: 0.84;
+      transition-duration: 0.2s;
+    }
+  </style>
+</head>
+<body>
+  <form action="/pay" method="POST">
+    <input id="" type="hidden" name="amount" value="5000">
+    <input type="text" name="name" value="John Doe" placeholder="Full Name">
+    <input type="email" name="email" value="johndoe@anonymous.com" placeholder="Email">
+    <input type="text" name="phone" value="09012345678" placeholder="Phone Number">
+
+    <button type="submit">PAY N5000</button>
+  </form>
+</body>
+</html>
