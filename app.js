@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const got = require("got");
+const axios = require("axios");
 
 const express = require("express");
 
@@ -12,28 +12,27 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/pay", async (req, res) => {
   try {
-    const response = await got.post("https://api.flutterwave.com/v3/payments", {
-      headers: {
-          Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`
+    const response = await axios.post('https://api.flutterwave.com/v3/payments', {
+      tx_ref: Date.now().toString(),
+      amount: "5000",
+      currency: "NGN",
+      redirect_url: "https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",// the webpage to redirect the user after a successful/cancelled transaction
+      customer: {
+        email: req.body.email,
+        phonenumber: req.body.phone,
+        name: req.body.name
       },
-      json: {
-          tx_ref: Date.now().toString(),
-          amount: "5000",
-          currency: "NGN",
-          redirect_url: "https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",// the webpage to redirect the user after a successful/cancelled transaction
-          customer: {
-              email: req.body.email,
-              phonenumber: req.body.phone,
-              name: req.body.name
-          },
-          customizations: {
-              title: "Payment Page",// the name of your business/page
-              logo: ""// the web url of the logo to display
-          }
+      customizations: {
+        title: "Payment Page",// the name of your business/page
+        logo: ""// the web url of the logo to display
       }
-    }).json();
+    }, {
+      headers: {
+        Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`
+      }
+    });
 
-    res.redirect(response.data.link);
+    res.redirect(response.data.data.link);
   } catch(error) {
     return res.status(500).json({
       status: false,
@@ -52,14 +51,8 @@ app.post("/webhook", async (req, res) => {
       return res.status(401).end();
     }
 
-    const payload = req.body;
-
     // It's a good idea to log all received events.
-    console.log(payload);
-
-    const csEmail = payload.customer?.email;
-    const txAmount = payload.amount;
-    const txReference = payload.txRef;
+    console.log(req.body);
 
     if (
       response.data.status === "successful"
