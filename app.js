@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const axios = require("axios");
-
 const express = require("express");
 
 const app = express();
@@ -59,6 +58,7 @@ app.post("/webhook", async (req, res) => {
       && response.data.amount === expectedAmount
       && response.data.currency === expectedCurrency
     ) {
+      // Do something...
       return res.status(200).end();
     }
     
