@@ -9,6 +9,7 @@ const path = require("path");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// This is an example merely for tutorial purposes. Actual implementation may differ.
 app.post("/pay", async (req, res) => {
   try {
     const response = await axios.post('https://api.flutterwave.com/v3/payments', {
@@ -41,6 +42,7 @@ app.post("/pay", async (req, res) => {
   }
 });
 
+// This is an example merely for tutorial purposes. Actual implementation may differ.
 app.post("/webhook", async (req, res) => {
   try {
     const secretHash = process.env.FLW_SECRET_HASH;
